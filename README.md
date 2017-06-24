@@ -2,6 +2,7 @@
 fcgi module for processing http requests via nginx
 
 Simple implementation config for NGINX:
+
 server { 
 	server_name localhost; 
 

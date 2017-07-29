@@ -19,6 +19,13 @@ QFCgiApp::QFCgiApp(int argc, char *argv[]) : QCoreApplication(argc, argv) {
       qCritical() << this->fcgi->errorString();
       QTimer::singleShot(0, this, SLOT(quit()));
     }
+
+    qx::QxSqlDatabase::getSingleton()->setDriverName("QSQLITE");
+    qx::QxSqlDatabase::getSingleton()->setDatabaseName("/home/vazg/Dev/testQxOrm/test.sqlite");
+    qx::QxSqlDatabase::getSingleton()->setHostName("localhost");
+    qx::QxSqlDatabase::getSingleton()->setUserName("root");
+    qx::QxSqlDatabase::getSingleton()->setPassword("");
+
 }
 
 void QFCgiApp::onNewRequest(QFCgiRequest *request) {
@@ -34,8 +41,13 @@ void QFCgiApp::onNewRequest(QFCgiRequest *request) {
     ts << QString("Hello from %1\n").arg(this->applicationName());
     ts << "This is what I received:\n";
 
+    QSqlError daoError = qx::dao::fetch_all(lst_admget);
     Q_FOREACH(QString key, request->getParams()) {
       ts << QString("%1: %2\n").arg(key).arg(request->getParam(key));
+    }
+
+    for(adm_ptr adm: lst_admget){
+      ts << QString("%1: %2 %3 %4\n").arg(adm->id).arg(adm->firstName).arg(adm->lastName).arg(adm->birthDate.toString());
     }
 
     ts.flush();

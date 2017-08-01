@@ -6,7 +6,7 @@
 class Admin
 {
 public:
-   long id;
+   quint64 id;
    QString firstName;
    QString lastName;
    QDateTime birthDate;
@@ -17,6 +17,7 @@ public:
 
 typedef std::shared_ptr<Admin> adm_ptr;
 
+QX_REGISTER_PRIMARY_KEY(Admin, quint64)
 QX_REGISTER_HPP(Admin, qx::trait::no_base_class_defined, 0)
 
 #endif // ADMIN_H

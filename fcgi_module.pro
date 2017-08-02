@@ -11,7 +11,7 @@ INCLUDEPATH += $$PWD/libs/include \
                $$PWD/libs/include/qxorm
 
 LIBS+= -L$$PWD/libs/qfcgi -lQFCgi \
-       -L$$PWD/libs/qxorm -lQxOrmd
+       -L$$PWD/libs/qxorm -lQxOrm
 
 TEMPLATE = app
 SOURCES +=  src/main.cpp \
